@@ -9,4 +9,5 @@ def view_list(request):
 	return render_to_response('list.html',{'posts':response_list},context_instance=RequestContext(request))
 
 def view_post(request, id):
-	pass
+	response_post=Post.objects.get(id=request.GET['id'])
+	return render_to_response('post.html',{'post':response_post},context_instance=RequestContext(request))
