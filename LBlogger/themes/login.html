@@ -17,8 +17,11 @@
                 </div>
             </div>
         <![endif]-->
-        {% for post in posts %}
-        <a href="/post/{{post.id}}">Title={{ post.title }} | Content={{ post.content }} | Author={{ post.author.username }}</a><br/>
-        {% endfor %}
+	    <form action="/login/" method="POST">
+	        {% csrf_token %}
+	        <input type="text" name="username">
+	        <input type="password" name="password">
+	        <input type="submit" value="提交">
+	    </form>
     </body>
 </html>
