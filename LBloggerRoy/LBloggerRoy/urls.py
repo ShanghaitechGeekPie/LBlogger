@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     url(r'^post/(\d)+/$', post_content),
     url(r'^register/$', register),
     url(r'^user_center/$', user_center),
-    url(r'^login/$', login)
+    url(r'^login/$', login),
 )
