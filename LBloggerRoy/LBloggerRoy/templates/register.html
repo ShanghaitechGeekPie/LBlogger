@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>注册</title>
+</head>
+<body>
+    <form action="/register/" method="POST">{% csrf_token %}
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="submit" value="提交注册">
+</body>
+</html>

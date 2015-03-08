@@ -18,3 +18,6 @@ class Post(models.Model):
     category = models.ForeignKey(Category, verbose_name = "类别")
     def __str__(self):
         return self.title
+
+class InvitationCode(models.Model):
+    pass

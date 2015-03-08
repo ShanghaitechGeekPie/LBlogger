@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>列表</title>
+</head>
+<body>
+    <ul>
+        {% for post in posts %}
+        <li><a href="/post/{{ post.id }}/">{{ post.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
