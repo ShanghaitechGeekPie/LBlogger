@@ -1,16 +1,33 @@
 #coding=utf-8
 from LBlogger_db.models import *
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response,HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 def view_list(request):
     response_list=Post.objects.all()
-    return render_to_response('list.html',{'posts':response_list},context_instance=RequestContext(request))
+    response_tag=Tag.objects.all()
+    return render_to_response('list.html',{
+        'posts':response_list,
+        'tags':response_tag
+        },context_instance=RequestContext(request))
 
 def view_post(request, id):
     response_post=Post.objects.get(id=id)
-    return render_to_response('post.html',{'post':response_post},context_instance=RequestContext(request))
+    response_tag=Tag.objects.all()
+    return render_to_response('post.html',{
+        'post':response_post,
+        'tags':response_tag
+        },context_instance=RequestContext(request))
+
+def dashboard_edit(request, id):
+    response_post=Post.objects.get(id=id)
+    response_tag=Tag.objects.all()
+    return render_to_response('edit.html',{
+        'post':response_post,
+        'tags':response_tag
+        },context_instance=RequestContext(request))
 
 def register(request):
     if request.method == 'GET':
@@ -18,8 +35,7 @@ def register(request):
             return HttpResponse('You have logged in')
         else:
             return render_to_response('register.html', {
-                },
-                context_instance = RequestContext(request))
+                },context_instance = RequestContext(request))
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -33,7 +49,16 @@ def register(request):
                 return HttpResponse('error')
 
 def user_center(request):
-    return HttpResponse('login success %s' % request.user.username)
+    if request.method == 'POST':
+        if request.POST['command'] == 'new':
+            tpost = Post(
+                title = request.POST['title'],
+                content = request.POST['content'],
+                author = request.user,
+                )
+            tpost.save()
+    return render_to_response('user_center.html', {
+        },context_instance = RequestContext(request))
 
 def login(request):
     if request.method == 'GET':
@@ -54,4 +79,5 @@ def login(request):
             return HttpResponse('not vaild')
 
 def logout(request):
-    pass
+    logout(request)
+    return HttpResponseRedirect('/')

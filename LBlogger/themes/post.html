@@ -1,24 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>LBlogger</title>
-	</head>
-	<body>
-		<!--[if lt IE 10]>
-			<div class="alert alert-danger alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<div style="margin-left:20px;margin-right:20px;">
-					<h4>( >﹏< ) 似乎您用的浏览器不欢迎我……</h4>
-					您现在使用的浏览器内核有点老了，不能很好地理解Cheetah系统的代码，很多好看的东西和动画效果都看不到了好桑心(~>__<~) <br />
-					&nbsp;&nbsp;&nbsp;&nbsp;如果您在用搜狗、360这些双核浏览器，只需要调成“极速模式”我们就可以愉快的玩耍啦b（￣▽￣）d。<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;如果还是不行的话，欢迎投身 <a href="http://www.firefox.com.cn/download/" target="_blank">Firefox浏览器</a>或者 <a href="http://pan.baidu.com/s/1qWjtwhY" target="_blank">Chrome浏览器</a>的怀抱呦～<br />
-					&nbsp;&nbsp;&nbsp;&nbsp;当然，如果您对您的忍耐力足够自信，而且不担心可能丢失指令的话，您可以点击右上角的叉号关闭这个提示框继续浏览。
-				</div>
+{% extends "root.html" %}
+
+{% block Rtitle %}LBlogger{% endblock %}
+
+{% block Rcss %}
+	<link href="/static/css/common.css" rel="stylesheet">
+{% endblock %}
+
+{% block Rbody %}
+	<div class="container post_block">
+		<div class="row">
+			<div class="post_head">
+				<h3 class="text-center">{{post.title}}</h3>
+				<p class="text-center">时间：2015年03月15日19:40:49 作者：{{post.author.username}}</p>
 			</div>
-		<![endif]-->
-		<h1>{{post.title}}</h1>
-		<h6>{{post.author.username}}</h6>
-		<p>{{post.content}}</p>
-	</body>
-</html>
+			<div class="post_body">
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+				<p>{{post.content}}</p>
+			</div>
+			<div class="post_foot">
+				<p>文章标签：
+				{% for tag in post.tag.all %}
+					<span class="label label-info">{{tag.name}}</span>
+				{% endfor %}
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block Rjs %}
+{% endblock %}

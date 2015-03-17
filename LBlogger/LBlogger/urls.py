@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^list/$', view_list),
     url(r'^post/(\d)+/$', view_post),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^register/$', register),
+    url(r'^dashboard/edit/(\d)+/$', dashboard_edit),
     url(r'^user_center/$', user_center),
     url(r'^login/$', login),
 
