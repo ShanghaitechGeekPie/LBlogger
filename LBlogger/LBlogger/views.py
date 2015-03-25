@@ -1,12 +1,15 @@
 #coding=utf-8
 from LBlogger_db.models import *
 from django.template import RequestContext
-from django.shortcuts import render_to_response,HttpResponse
+from django.shortcuts import render_to_response,HttpResponse,Http404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
-def view_list(request):
-    response_list=Post.objects.all()
+def view_list(request,id=False):
+    if id:
+        response_list=Tag.objects.get(id=id).post_set.all()
+    else:
+        response_list=Post.objects.all()
     response_tag=Tag.objects.all()
     return render_to_response('list.html',{
         'posts':response_list,
@@ -20,6 +23,17 @@ def view_post(request, id):
         'post':response_post,
         'tags':response_tag
         },context_instance=RequestContext(request))
+
+def dashboard(request):
+    if request.user.is_staff:
+        pass
+    elif request.user.is_superuser:
+        pass
+    else:
+        raise Http404
+    return render_to_response('dashboard_post.html',{
+        },context_instance=RequestContext(request))
+
 
 def dashboard_edit(request, id):
     response_post=Post.objects.get(id=id)
