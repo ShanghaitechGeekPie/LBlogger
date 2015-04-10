@@ -1,27 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>LBlogger</title>
-    </head>
-    <body>
-        <!--[if lt IE 10]>
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <div style="margin-left:20px;margin-right:20px;">
-                    <h4>( >﹏< ) 似乎您用的浏览器不欢迎我……</h4>
-                    您现在使用的浏览器内核有点老了，不能很好地理解Cheetah系统的代码，很多好看的东西和动画效果都看不到了好桑心(~>__<~) <br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;如果您在用搜狗、360这些双核浏览器，只需要调成“极速模式”我们就可以愉快的玩耍啦b（￣▽￣）d。<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;如果还是不行的话，欢迎投身 <a href="http://www.firefox.com.cn/download/" target="_blank">Firefox浏览器</a>或者 <a href="http://pan.baidu.com/s/1qWjtwhY" target="_blank">Chrome浏览器</a>的怀抱呦～<br />
-                    &nbsp;&nbsp;&nbsp;&nbsp;当然，如果您对您的忍耐力足够自信，而且不担心可能丢失指令的话，您可以点击右上角的叉号关闭这个提示框继续浏览。
-                </div>
-            </div>
-        <![endif]-->
-	    <form action="/login/" method="POST">
-	        {% csrf_token %}
-	        <input type="text" name="username" />
-	        <input type="password" name="password" />
-	        <button type="submit">提交</button>
-	    </form>
-    </body>
-</html>
+{% extends "root.html" %}
+
+{% block Rtitle %}登录{% endblock %}
+
+{% block Rcss %}{% endblock %}
+
+{% block Rbody %}
+<div class="row login_page">
+	<div class="span3"></div>
+	<div class="span6">
+		<div class="well">
+			<form action="." method="post" class="form-horizontal"> 
+				<div class="row">
+					<div class="span6"></div>
+					<div class="span6">
+						{% csrf_token %}
+						<div class="user_panel text-center">
+							<img src="/static/image/user.png">
+						</div>
+						<div class="login_panel">
+							<div class="control-group text-center">
+								<div class="input-prepend">
+									<span class="add-on"><i class="icon-user"></i></span>
+									{{ form.username }}
+								</div>
+							</div>
+							<div class="control-group text-center">
+								<div class="input-prepend">
+									<span class="add-on"><i class="icon-lock"></i></span>
+									{{ form.password }}
+								</div>
+							</div>
+							<input type="hidden" name="next" value="{{ next|escape }}" />
+						</div>
+					</div>
+				</div>
+				{% if form.errors %}
+				<div class="alert alert-error">
+					<span>登录失败。</span><button type="button" class="close" data-dismiss="alert">&times;</button>
+				</div>
+				{% endif %}
+				<div class="footer">
+					<button class="btn btn-primary btn-block" id="login_button" type="submit">登录</button>
+				</div>
+			</form>	
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+{% block Rjs %}
+{% endblock %}

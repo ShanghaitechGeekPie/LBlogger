@@ -10,10 +10,11 @@ urlpatterns = patterns('',
     url(r'^$', view_list),
     url(r'^list/(\d*)/$', view_list),
     url(r'^post/(\d+)/$', view_post),
-    url(r'^dashboard$', dashboard),
+    url(r'^dashboard/$', dashboard),
     url(r'^dashboard/edit/(\d)+/$', dashboard_edit),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^user_center/$', user_center),
-    url(r'^login/$', login),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
 
 )

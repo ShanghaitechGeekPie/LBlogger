@@ -10,28 +10,10 @@
 		<div class="row">
 			<div class="post_head">
 				<h3 class="text-center">{{post.title}}</h3>
-				<p class="text-center">时间：2015年03月15日19:40:49 作者：{{post.author.username}}</p>
+				<p class="text-center">时间：{{post.timestamp | date:"Y-n-j G:i:s" }} 作者：{{post.author.username}}</p>
 			</div>
 			<div class="post_body">
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
-				<p>{{post.content}}</p>
+				{{post.content|safe}}
 			</div>
 			<div class="post_foot">
 				<p>文章标签：
@@ -40,6 +22,12 @@
 				{% endfor %}
 				</p>
 			</div>
+		</div>
+	</div>
+	<div class="container post_comment_block">
+		<div class="row">
+			{% load duoshuo_tags %}
+			{% duoshuo_comments %}
 		</div>
 	</div>
 {% endblock %}

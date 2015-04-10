@@ -1,3 +1,4 @@
+#coding=utf-8
 """
 Django settings for LBlogger project.
 
@@ -37,7 +38,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'LBlogger_db',
+    'duoshuo',
 )
+
+DUOSHUO_SECRET = '9f200e5eb5a6b8f09691001fc0d70887'
+
+DUOSHUO_SHORT_NAME = 'shanghaitechnews'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -9,22 +9,10 @@
 	<div class="container-fluid">
 		<div class="row">
 		{% for post in posts %}
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 list_block" onclick="location.href='/post/{{ post.id }}'">
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 list_block" onclick="location.href='/post/{{ post.id }}'">
 				<div>
 					<p class="list_title">{{post.title}}</p>
-					<p class="list_content">{{post.content}}</p>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 list_block">
-				<div>
-					<p class="list_title">{{post.title}}</p>
-					<p class="list_content">{{post.content}}<br/>asd<br/>asd<br/>asd<br/>asd<br/>asd<br/>asd<br/>asd<br/>asd<br/>asd<br/>asd<br/>asd</p>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-3 col-sm-4 col-xs-12 list_block">
-				<div>
-					<p class="list_title">{{post.title}}</p>
-					<p class="list_content">{{post.content}}<br/>asd<br/>asd<br/>asd<br/>asd</p>
+					<p class="list_content">{{post.content|safe}}</p>
 				</div>
 			</div>
 		{% endfor %}
