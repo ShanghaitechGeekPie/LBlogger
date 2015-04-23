@@ -10,13 +10,14 @@ from django.contrib.auth.decorators import login_required
 
 def view_list(request,id=False):
     if id:
-        response_list=Tag.objects.get(id=id).post_set.all()
+        response_list=Tag.objects.get(id=id).post_set.filter(status=True)
     else:
-        response_list=Post.objects.all()
+        response_list=Post.objects.filter(status=True)
     response_tag=Tag.objects.all()
     return render_to_response('list.html',{
         'posts':response_list,
-        'tags':response_tag
+        'tags':response_tag,
+        'id':int(id),
         },context_instance=RequestContext(request))
 
 def view_post(request, id):
@@ -29,7 +30,10 @@ def view_post(request, id):
 
 @login_required
 def dashboard(request):
+    if not request.user.is_staff:
+        raise Http404
     response_msg=''
+    response_tab=0
     if request.method=='GET' and request.GET.has_key('command'):
         if request.GET['command']=='GetPost':
             tpost=Post.objects.get(id=request.GET['id'])
@@ -66,39 +70,52 @@ def dashboard(request):
                     },ensure_ascii=False))
 
         if request.POST['command']=='TagAdd':
-            if request.user.is_staff:
+            if request.user.is_superuser:
+                response_tab=1
                 ttag=Tag(name=request.POST['name'])
                 ttag.save()
             else:
                 response_msg='无权操作'
         if request.POST['command']=='TagRename':
-            if request.user.is_staff:
+            if request.user.is_superuser:
+                response_tab=1
                 ttag=Tag.objects.get(id=request.POST['id'])
                 ttag.name=request.POST['name']
                 ttag.save()
             else:
                 response_msg='无权操作'
+        if request.POST['command']=='TagDelete':
+            if request.user.is_superuser:
+                response_tab=1
+                ttag=Tag.objects.get(id=request.POST['id'])
+                ttag.delete()
+            else:
+                response_msg='无权操作'
         if request.POST['command']=='PostCheck_R':
-            if request.user.is_staff:
+            if request.user.is_superuser:
+                response_tab=2
                 tpost=Post.objects.get(id=request.POST['id'])
                 tpost.status=False
                 tpost.save()
             else:
                 response_msg='无权操作'
         if request.POST['command']=='PostCheck_A':
-            if request.user.is_staff:
+            if request.user.is_superuser:
+                response_tab=2
                 tpost=Post.objects.get(id=request.POST['id'])
                 tpost.status=True
                 tpost.save()
             else:
                 response_msg='无权操作'
         if request.POST['command']=='PostDelete':
-            if request.user.is_staff:
-                tpost=Post.objects.get(id=request.POST['id'])
+            tpost=Post.objects.get(id=request.POST['id'])
+            if request.user.is_superuser or request.user==tpost.author:
+                response_tab=2
                 tpost.delete()
             else:
                 response_msg='无权操作'
         if request.POST['command']=='PostNew':
+            response_tab=2
             tpost=Post(
                 title=request.POST['title'],
                 content=request.POST['content'],
@@ -112,23 +129,29 @@ def dashboard(request):
             tpost.save()
         if request.POST['command']=='PostEdit':
             tpost=Post.objects.get(id=request.POST['id'])
-            tpost.title=request.POST['title']
-            tpost.content=request.POST['content']
-            tpost.author=request.user
-            tpost.status=False
-            tpost.tag.clear()
-            ttags=Tag.objects.all()
-            for tag in ttags:
-                if request.POST.has_key(str(tag.id)):
-                    tpost.tag.add(tag)
-            tpost.save()
-    if request.user.is_superuser:
-        pass
+            if request.user.is_superuser or request.user==tpost.author:
+                response_tab=2
+                tpost.title=request.POST['title']
+                tpost.content=request.POST['content']
+                tpost.author=request.user
+                tpost.status=False
+                tpost.tag.clear()
+                ttags=Tag.objects.all()
+                for tag in ttags:
+                    if request.POST.has_key(str(tag.id)):
+                        tpost.tag.add(tag)
+                tpost.save()
+            else:
+                response_msg='无权操作'
     response_post=Post.objects.all()
     response_tag=Tag.objects.all()
+    response_user=User.objects.all()
     return render_to_response('dashboard_post.html',{
+        'msg':response_msg,
         'posts':response_post,
-        'tags':response_tag
+        'tags':response_tag,
+        'tab':response_tab,
+        'users':response_user
         },context_instance=RequestContext(request))
 
 

@@ -6,6 +6,9 @@ body{
 	background:#E6EBF1;	
 	font-size: 14px;
 }
+img{
+	width:100%;
+}
 .navbar-inverse {
   background-color: rgba(52, 73, 94, 0.7);
 }
@@ -17,9 +20,13 @@ body{
 .list_block > div{
 	border-top: solid 5px #34495e;
 	margin: 0px 10px;
-	padding: 5px 5px;
+	padding: 5px 10px;
 	background-color: rgba(255,255,255,0.8);
 	box-shadow: 0px 0px 3px rgba(0,0,0,0.1);
+}
+p{
+  word-break: break-word;
+  text-align: justify;
 }
 .list_block:hover > div{
 	background-color: rgba(255,255,255,0.9);

@@ -9,7 +9,9 @@ function TagRename(id,name){
 	$('#TagRenameModal #name').val(name)
 	$('#TagRenameModal').modal('show')
 };
-function TagDelete(id,name){
+function TagDelete(id){
+	$("#form_tag_delete #id").val(id);
+	$('#TagDeleteModal').modal('show');
 };
 function PostEdit(id){
 	$.getJSON("/dashboard?command=GetPost&id="+id,function(result){
@@ -35,9 +37,8 @@ function PostCheck(id,handle){
 	$("#form_post_list").submit();
 };
 function PostDelete(id){
-	$("#form_post_list #command").val("PostDelete");
-	$("#form_post_list #id").val(id);
-	$("#form_post_list").submit();
+	$("#form_post_delete #id").val(id);
+	$('#PostDeleteModal').modal('show');
 };
 
 
@@ -85,4 +86,5 @@ $(function(){
 			$(this).iCheck('uncheck');
 		});
 	});
+	$('#MSGModal').modal('show')
 }) 

@@ -43,7 +43,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						{% for tag in tags %}
-						<li {% if forloop.first %}class="active"{% endif %}><a href="/list/{{tag.id}}">{{tag.name}}</a></li>
+						<li {% ifequal id tag.id %}class="active"{% endifequal %}><a href="/list/{{tag.id}}">{{tag.name}}</a></li>
 						{% endfor %}
 					</ul>
 				</div>
