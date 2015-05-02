@@ -46,6 +46,9 @@
 						<li {% ifequal id tag.id %}class="active"{% endifequal %}><a href="/list/{{tag.id}}">{{tag.name}}</a></li>
 						{% endfor %}
 					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li ><a href="/dashboard">{% if user.is_staff %}后台编辑{% else %}登录{% endif %}</a></li>
+					</ul>
 				</div>
 			</div>
 		</nav>
