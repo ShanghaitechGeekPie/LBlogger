@@ -17,3 +17,5 @@ class Post(models.Model):
     status = models.BooleanField(verbose_name = '审核')
     tag = models.ManyToManyField(Tag,verbose_name = '标签')
     timestamp = models.DateTimeField(auto_now_add=True, verbose_name = '时间戳')
+    class Meta:
+        ordering = ['-timestamp']

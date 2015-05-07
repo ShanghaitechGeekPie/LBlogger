@@ -16,5 +16,8 @@ urlpatterns = patterns('',
     url(r'^user_center/$', user_center),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'logout.html'}),
+    url(r'^accounts/change/$', 'django.contrib.auth.views.password_change',{'post_change_redirect': '/','template_name': 'change.html'}),
+
+
 
 )

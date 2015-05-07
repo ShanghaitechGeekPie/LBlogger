@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-def view_list(request,id=False):
+def view_list(request,id=0):
     if id:
         response_list=Tag.objects.get(id=id).post_set.filter(status=True)
     else:

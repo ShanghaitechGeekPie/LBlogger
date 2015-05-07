@@ -192,9 +192,12 @@
 										<div class="btn-group btn-group-xs" role="group">
 											{%　if not user.is_superuser %}
 											{% ifequal user.id tuser.id %}
-											<a href="#new_post" role="tab" class="btn btn-info btn-xs" data-toggle="tab" onclick="PostEdit({{post.id}});"><span class="fui-new"></span> Change Password</a>
+											<a href="/accounts/change/" class="btn btn-info btn-xs"><span class="fui-lock"></span> Change Password</a>
 											{% endifequal %}
 											{% else %}
+											{% ifequal user.id tuser.id %}
+											<a href="/accounts/change/" class="btn btn-info btn-xs"><span class="fui-lock"></span> Change Password</a>
+											{% endifequal %}
 											<a href="#new_post" role="tab" class="btn btn-info btn-xs" data-toggle="tab" onclick="PostEdit({{post.id}});"><span class="fui-new"></span> Edit</a>
 											<a href="#new_post" role="tab" class="btn btn-info btn-xs" data-toggle="tab" onclick="PostEdit({{post.id}});"><span class="fui-new"></span> Change Password</a>
 											<button class="btn btn-danger btn-xs" type="button" onclick="PostDelete({{post.id}})"><span class="fui-cross"></span> Delete</button>
